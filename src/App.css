@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+html {
+  scroll-behavior: smooth;
+}
+
+section {
+  scroll-margin-top: 64px; /* Adjust based on your navbar height */
+}
