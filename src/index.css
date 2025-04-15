@@ -136,7 +136,7 @@
   width: 100%; /* Full width on small screens */
   height: 28rem; /* Fixed height, larger than original 384px */
   max-width: 28rem; /* Larger size for medium+ screens */
-  background-image: url('ROBOT.gif');
+  background-image: url('/ROBOT.gif');
   background-size: cover;
   background-position: center;
   opacity: 0.8;
