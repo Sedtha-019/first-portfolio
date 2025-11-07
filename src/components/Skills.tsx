@@ -27,6 +27,7 @@ const skills: Skill[] = [
   { name: 'Pyplot', level: 80, category: 'data' },
   { name: 'Seaborn', level: 60, category: 'data' },
   { name: 'PySpark', level: 80, category: 'data-eng' },
+  { name: 'Dask', level: 80, category: 'data-eng' },
   { name: 'Docker', level: 75, category: 'data-eng' },
   { name: 'Airflow', level: 65, category: 'data-eng' },
   { name: 'AWS S3', level: 70, category: 'data-eng' },
