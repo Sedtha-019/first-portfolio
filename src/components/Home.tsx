@@ -2,7 +2,7 @@ import React from 'react';
 import { TypeAnimation } from 'react-type-animation';
 import { motion } from 'framer-motion';
 import { Brain, Code, Database, GraduationCap } from 'lucide-react';
-import MeImage from '../../ME.jpg'; // Adjust the relative path if needed
+import MeImage from '/ME.jpg'; // Adjust the relative path if needed
 import { useEffect } from "react";
 
 
@@ -17,7 +17,7 @@ const Home = () => {
         <div className="container mx-auto flex items-center gap-12">
           {/* First Logo - Made bigger */}
           <img
-            src="https://th.bing.com/th/id/R.c4434f47ddff5b24cfde2c82c60a2031?rik=V4Y2%2ftxt2L05%2bQ&pid=ImgRaw&r=0"
+            src="https://itc.edu.kh/wp-content/uploads/2021/02/cropped-Logo-ITC.png"
             alt="University Logo"
             className="w-48 h-48 md:w-32 md:h-32 object-contain"
           />
@@ -55,15 +55,15 @@ const Home = () => {
           <div className="text-xl md:text-2xl mb-6 text-gray-700 dark:text-gray-300">
             <TypeAnimation
               sequence={[
-                'PASSIONATE ABOUT AI & ML',
+                'AI & MACHINE LEARNING ENGINEER',
                 2000,
-                'COMPUTER VISION ENTHUSIAST',
+                'COMPUTER VISION RESEARCHER',
                 2000,
-                'DATA SCIENCE MAJOR',
+                'DATA SCIENTIST',
                 2000,
                 'DEEP LEARNING SPECIALIST',
                 2000,
-                'EXPLORING AI FOR REAL-WORLD SOLUTIONS',
+                'MLOPS PRACTITIONER',
                 2000,
               ]}
               wrapper="span"

@@ -1,8 +1,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Brain, Code, Database, Cpu } from 'lucide-react';
-import type { Skill } from '../types';
+import { Shield, Server, Brain, Code, Database, Cpu } from 'lucide-react';
+
+// Define the Skill type - you might have this in ../types
+// If not, you can add it here:
+export type Skill = {
+  name: string;
+  level: number;
+  category: string;
+};
 
 const skills: Skill[] = [
   { name: 'Python', level: 90, category: 'programming' },
@@ -12,12 +19,18 @@ const skills: Skill[] = [
   { name: 'PyTorch', level: 80, category: 'ai' },
   { name: 'OpenCV', level: 80, category: 'ai' },
   { name: 'Scikit-learn', level: 80, category: 'ai' },
+  { name: 'Transformers', level: 75, category: 'ai' },
   { name: 'SQL', level: 70, category: 'data' },
   { name: 'Pandas', level: 90, category: 'data' },
   { name: 'Numpy', level: 90, category: 'data' },
   { name: 'Matplotlib', level: 90, category: 'data' },
   { name: 'Pyplot', level: 80, category: 'data' },
   { name: 'Seaborn', level: 60, category: 'data' },
+  { name: 'PySpark', level: 80, category: 'data-eng' },
+  { name: 'Docker', level: 75, category: 'data-eng' },
+  { name: 'Airflow', level: 65, category: 'data-eng' },
+  { name: 'AWS S3', level: 70, category: 'data-eng' },
+  { name: 'Cybersecurity', level: 20, category: 'security' },
   // { name: 'Arduino', level: 60, category: 'iot' },
   // { name: 'Raspberry Pi', level: 80, category: 'iot' },
 ];
@@ -55,6 +68,8 @@ const Skills = () => {
     { name: 'Programming', icon: Code, skills: skills.filter(s => s.category === 'programming') },
     { name: 'AI & ML', icon: Brain, skills: skills.filter(s => s.category === 'ai') },
     { name: 'Data Science', icon: Database, skills: skills.filter(s => s.category === 'data') },
+    { name: 'Data Engineering', icon: Server, skills: skills.filter(s => s.category === 'data-eng') },
+    { name: 'Cybersecurity', icon: Shield, skills: skills.filter(s => s.category === 'security') },
     // { name: 'IoT', icon: Cpu, skills: skills.filter(s => s.category === 'iot') },
   ];
 
