@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Tilt } from 'react-tilt';
-import { Github, ExternalLink, Flame, Car, Scan } from 'lucide-react';
+import { Github, ExternalLink, Flame, Car, Scan, Server, FileText } from 'lucide-react';
+// Assuming 'Project' type is defined in '../types'
+// If not, add: export type Project = { id: string; title: string; ...etc }
 import type { Project } from '../types';
 
 const projects: Project[] = [
@@ -12,18 +14,18 @@ const projects: Project[] = [
     image: 'CameraFire.png',
     category: 'Computer Vision',
     technologies: ['Python', 'PyTorch', 'OpenCV', 'YOLO','SSD(Single Shot Detector)','Faster R-CNN'],
-    githubUrl: '#',
-    liveUrl: '#'
+    githubUrl: 'https://github.com/Sedtha-019',
+    liveUrl: 'fns.png'
   },
   {
     id: '2',
-    title: 'Vehicle Classification',
-    description: 'Advanced vehicle classification system that categorizes vehicles in real-time using deep learning models.',
-    image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80',
+    title: 'Vehicle Counting', // <-- CHANGED
+    description: 'Advanced vehicle counting system that categorizes and counts vehicles in real-time using deep learning models.', // <-- CHANGED
+    image: 'counting.png',
     category: 'Machine Learning',
     technologies: ['Python', 'OpenCV', 'YOLO'],
-    githubUrl: '#',
-    liveUrl: '#'
+    githubUrl: 'https://github.com/Sedtha-019',
+    liveUrl: 'counting.png'
   },
   {
     id: '3',
@@ -33,6 +35,36 @@ const projects: Project[] = [
     category: 'AI',
     technologies: ['Python', 'FaceNet', 'Faster R-CNN', 'OpenCV'],
     githubUrl: 'https://github.com/Sedtha-019/face-detection-recognition-pytorch.git',
+    liveUrl: '#'
+  },
+  {
+    id: '4',
+    title: 'Scalable ETL Pipeline (Thesis)',
+    description: 'My thesis project: a scalable, end-to-end ETL pipeline designed to process large-scale cloud data using modern data engineering tools.',
+    image: 'slide.png',
+    category: 'Data Engineering',
+    technologies: ['PySpark', 'Docker', 'Airflow', 'AWS S3', 'PostgreSQL'],
+    githubUrl: 'https://github.com/Sedtha-019',
+    liveUrl: 'etl.png'
+  },
+  {
+    id: '5',
+    title: 'Khmer Text Summarizer',
+    description: 'A web-based tool for summarizing Khmer-language text, built using fine-tuned, state-of-the-art Transformer models. Team Project(Team Leader: MA OUSA)',
+    image: 'khmerAI.png',
+    category: 'NLP',
+    technologies: ['PyTorch', 'Transformers', 'Hugging Face', 'Gradio', 'mBart50-large','LoRa Fine-tuning'],
+    githubUrl: 'https://github.com/Sedtha-019/Khmer-Text-Summarization-.git',
+    liveUrl: 'khmerAI.png'
+  },
+  {
+    id: '6',
+    title: 'Khmer Handwritten Character Recognition',
+    description: 'Predicts handwritten Khmer characters from images using a custom CNN in PyTorch. The model classifies 10 Khmer letters with high accuracy.',
+    image: 'khmer_alphabet_grey2.webp',
+    category: 'Khmer OCR',
+    technologies: ['PyTorch', 'CNN', 'OpenCV', 'Data Augmentation'],
+    githubUrl: 'https://github.com/Sedtha-019/Khmer-Handwritten-Character-Recognition-Using-PyTorch.git',
     liveUrl: '#'
   }
 ];
@@ -53,24 +85,40 @@ const ProjectCard = ({ project }: { project: Project }) => {
   const getProjectIcon = (title: string) => {
     if (title.includes('Fire')) return Flame;
     if (title.includes('Vehicle')) return Car;
-    return Scan;
+    if (title.includes('ETL')) return Server;
+    if (title.includes('Summarizer')) return FileText;
+    return Scan; // Default for Face Recognition
   };
 
   const Icon = getProjectIcon(project.title);
 
   // State and Effect for Image Animation
   const [currentImage, setCurrentImage] = useState(project.image);
-  const alternateImages = project.title === 'Face Recognition System' ? ['Face1.png', 'Face2.png'] : [project.image];
+  
+  // --- CORRECTED SECTION ---
+  // Combined the two declarations into one to avoid the redeclaration error
+  const alternateImages = project.title === 'Face Recognition System'
+    ? ['Face1.png', 'Face2.png']
+    : project.title === 'Scalable ETL Pipeline (Thesis)'
+      ? ['slide.png', 'etl.png']
+      : [project.image];
+      
+  // --- END OF CORRECTION ---
 
   useEffect(() => {
+    // Check if there are multiple images to alternate
     if (alternateImages.length > 1) {
       const interval = setInterval(() => {
+        // Switch to the other image
         setCurrentImage((prevImage) =>
           prevImage === alternateImages[0] ? alternateImages[1] : alternateImages[0]
         );
       }, 3000); // Change image every 3 seconds
+      
+      // Clear interval on component unmount
       return () => clearInterval(interval);
     }
+    // Add alternateImages to the dependency array
   }, [alternateImages]);
 
   return (
@@ -135,7 +183,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
 
 const Projects = () => {
   const [filter, setFilter] = useState('All');
-  const categories = ['All', 'Computer Vision', 'Machine Learning', 'AI'];
+  const categories = ['All', 'Computer Vision', 'Machine Learning', 'AI', 'Data Engineering', 'NLP'];
 
   const filteredProjects = filter === 'All'
     ? projects
@@ -153,7 +201,7 @@ const Projects = () => {
           Featured Projects
         </motion.h2>
 
-        <div className="flex justify-center gap-4 mb-12">
+        <div className="flex justify-center flex-wrap gap-4 mb-12">
           {categories.map((category) => (
             <button
               key={category}
@@ -161,7 +209,7 @@ const Projects = () => {
               className={`px-4 py-2 rounded-lg transition-colors ${
                 filter === category
                   ? 'bg-emerald-600 text-white'
-                  : 'bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-emerald-100 dark:hover:bg-emerald-900/30'
+                  : 'bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-emerald-100 dark:hover:bg-emerald-900/3D'
               }`}
             >
               {category}

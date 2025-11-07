@@ -53,11 +53,12 @@ const About = () => {
             variants={itemVariants}
             className="bg-gray-50 dark:bg-gray-900 rounded-3xl p-8 mb-16 shadow-lg border border-gray-200 dark:border-gray-700"
           >
-            <p className="text-lg text-gray-700 dark:text-gray-300 mb-6">
-            Motivated senior-year Data Science student at the Institute of Technology of Cambodia with expertise in data analysis,  
-            programming, and statistical modeling. Skilled in building machine learning models, developing computer vision systems,  
-            and implementing object detection projects. Committed to leveraging data-driven strategies to solve complex challenges  
-            and deliver impactful solutions. Strong communicator with a proven ability to collaborate effectively across disciplines.
+            <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 text-center">
+            Motivated senior-year Data Science student at the Institute of Technology of Cambodia with expertise in data analysis, programming, and statistical modeling.
+
+            Skilled in building machine learning models, with a specialized focus on Data Engineering and Natural Language Processing.
+
+            Committed to leveraging data-driven strategies to solve complex challenges and deliver impactful solutions. Strong communicator with a proven ability to collaborate effectively across disciplines.
           </p>
 
           </motion.div>
@@ -86,6 +87,14 @@ const About = () => {
                     <span className="text-sm text-emerald-600 dark:text-emerald-400">GPA: 3.5</span>
                   </span>
                 </li>
+                {/* ANT Technology Training Center */}
+                  <li className="flex items-start gap-3">
+                    <ChevronRight className="w-5 h-5 text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-1" />
+                    <span className="text-gray-700 dark:text-gray-300">
+                      ANT Technology Training Center (11-2025 - Now )<br />
+                      <span className="text-sm text-emerald-600 dark:text-emerald-400">Scholarship Student</span>
+                    </span>
+                  </li>
                 {/* Anlong Veng High School */}
                 <li className="flex items-start gap-3">
                   <ChevronRight className="w-5 h-5 text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-1" />
@@ -107,11 +116,15 @@ const About = () => {
               </div>
               <ul className="space-y-4">
                 {[
-                  'Machine Learning & Deep Learning (PyTorch, Scikit-Learn, CNNs, YOLO, Faster R-CNN)',
-                  'Computer Vision & Object Detection (Face Recognition, Image Processing, OpenCV)',
-                  'Data Science & Analytics (PySpark, Pandas, Power BI, Data Visualization)',
+                  'Data Engineering & Pipelines (ETL/ELT, Docker, Airflow, AWS S3, PySpark)',
+                  'Natural Language Processing (NLP) (Transformers, PyTorch, Fine-tuning, Khmer Language Models)',
+                  
+                  // Existing skills (re-ordered for flow)
+                  'Machine Learning & Deep Learning (PyTorch, Scikit-Learn, CNNs)',
+                  'Data Science & Analytics (Pandas, Power BI, Data Visualization, Statistical Modeling)',
+                  'Computer Vision & Object Detection (OpenCV, YOLO, Faster R-CNN, SSD)',
                   'Web Scraping & Automation (Selenium, BeautifulSoup, Task Scheduling)',
-                  'IoT & Embedded Systems (ESP32-CAM, NodeMCU, ROS for Smart Factories)'
+                  'IoT & Embedded Systems (ESP32-CAM, NodeMCU'
                 ].map((item, index) => (
                   <li key={index} className="flex items-start gap-3">
                     <ChevronRight className="w-5 h-5 text-teal-600 dark:text-teal-400 flex-shrink-0 mt-1" />
@@ -131,6 +144,17 @@ const About = () => {
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Experience</h3>
               </div>
               <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <ChevronRight className="w-5 h-5 text-cyan-600 dark:text-cyan-400 flex-shrink-0 mt-1" />
+                  <span className="text-gray-700 dark:text-gray-300">
+                    AI, ML & ROBOTICS Intern<br />
+                    <span className="text-sm text-cyan-600 dark:text-cyan-400">Ministry of Education, Youth and Sport (July - December 2025)</span><br />
+                    <span className="text-xs text-gray-600 dark:text-gray-400">
+                      • Designed and implemented "A Scalable ETL Pipeline for Cloud Data" for my thesis.<br />
+                      • Gained hands-on experience with PySpark, AWS S3, Docker, and data pipeline orchestration.<br />
+                    </span>
+                  </span>
+                </li>
                 {/* Data Analyst Intern */}
                 <li className="flex items-start gap-3">
                   <ChevronRight className="w-5 h-5 text-cyan-600 dark:text-cyan-400 flex-shrink-0 mt-1" />
