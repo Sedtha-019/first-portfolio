@@ -7,6 +7,8 @@ export interface Project {
   technologies: string[];
   githubUrl?: string;
   liveUrl?: string;
+  featured?: boolean;
+  isPrivate?: boolean;
 }
 
 export interface Experience {

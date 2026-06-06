@@ -1,200 +1,157 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Download, Award, BookOpen, Briefcase, ChevronRight } from 'lucide-react';
+import { Download, BookOpen, Award, Briefcase, ChevronRight } from 'lucide-react';
 
-const About = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-        staggerChildren: 0.2,
+const CARDS = [
+  {
+    icon: BookOpen,
+    title: 'Education',
+    color: 'text-primary',
+    bg: 'bg-primary/10',
+    border: 'border-primary/20',
+    glow: 'from-primary/8',
+    items: [
+      {
+        label: 'Institute of Technology of Cambodia (ITC)',
+        sub: 'Engineering Degree in Data Science · 2021–2026',
+        detail: 'GPA: 3.5',
       },
-    },
-  };
+      {
+        label: 'ANT Technology Training Center',
+        sub: 'Scholarship Student · Nov 2025 – Present',
+      },
+      {
+        label: 'Anlong Veng High School',
+        sub: '2015 – 2021',
+        detail: 'Grade: A',
+      },
+    ],
+  },
+  {
+    icon: Award,
+    title: 'Expertise',
+    color: 'text-secondary',
+    bg: 'bg-secondary/10',
+    border: 'border-secondary/20',
+    glow: 'from-secondary/8',
+    items: [
+      { label: 'Reinforcement Learning (PPO, Stable-Baselines3, CARLA)' },
+      { label: 'AI Platform Development (FastAPI, RAG, pgvector)' },
+      { label: 'Machine Learning & Deep Learning (PyTorch, CNNs)' },
+      { label: 'Data Engineering (PySpark, Docker, Airflow, AWS S3)' },
+      { label: 'NLP & Transformers (Fine-tuning, Khmer Language Models)' },
+      { label: 'Computer Vision (OpenCV, YOLO, Faster R-CNN, SSD)' },
+    ],
+  },
+  {
+    icon: Briefcase,
+    title: 'Experience',
+    color: 'text-emerald-400',
+    bg: 'bg-emerald-500/10',
+    border: 'border-emerald-500/20',
+    glow: 'from-emerald-500/8',
+    items: [
+      {
+        label: 'AI Engineer — Sala (Company)',
+        sub: 'Nov 2025 – Present',
+        detail: 'Building Hero by Sala: RAG pipelines, pgvector career matching, AI task generation.',
+      },
+      {
+        label: 'AI, ML & Robotics Intern',
+        sub: 'Ministry of Education, Youth and Sport · Jul–Dec 2025',
+        detail: 'Thesis: Scalable ETL Pipeline for Cloud Data (PySpark, AWS S3, Docker, Airflow).',
+      },
+      {
+        label: 'Data Analyst Intern',
+        sub: 'SEARLE Company · Sep–Oct 2024',
+      },
+      {
+        label: 'Volunteer Interpreter',
+        sub: 'IDP Education · Mar 2024',
+        detail: 'Assisted international students during university orientation.',
+      },
+    ],
+  },
+];
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { type: 'spring', stiffness: 120 }
-    },
-  };
+const AboutCard = ({ card, index }: { card: typeof CARDS[0]; index: number }) => {
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  const { icon: Icon, title, color, bg, border, glow, items } = card;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-black py-20">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay: index * 0.15 }}
+      className="glass-card rounded-2xl p-7 relative overflow-hidden group"
+    >
+      <div className={`absolute -top-8 -right-8 w-36 h-36 rounded-full bg-gradient-to-br ${glow} to-transparent blur-2xl opacity-50 group-hover:opacity-100 transition-opacity duration-500`} />
+      <div className={`flex items-center gap-3 mb-6 relative z-10`}>
+        <div className={`p-2.5 rounded-xl ${bg} ${border} border`}>
+          <Icon className={`w-5 h-5 ${color}`} />
+        </div>
+        <h3 className="font-heading text-lg font-bold text-foreground">{title}</h3>
+      </div>
+      <ul className="space-y-4 relative z-10">
+        {items.map((item, i) => (
+          <li key={i} className="flex items-start gap-3">
+            <ChevronRight className={`w-4 h-4 ${color} flex-shrink-0 mt-0.5`} />
+            <div>
+              <p className="text-sm font-medium text-foreground">{item.label}</p>
+              {item.sub && <p className={`text-xs ${color} mt-0.5`}>{item.sub}</p>}
+              {item.detail && <p className="text-xs text-muted-foreground mt-0.5">{item.detail}</p>}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </motion.div>
+  );
+};
+
+const About = () => {
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+
+  return (
+    <div className="min-h-screen py-24 relative">
+      <div className="container mx-auto px-4 sm:px-8">
         <motion.div
           ref={ref}
-          variants={containerVariants}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="max-w-7xl mx-auto"
+          initial={{ opacity: 0, y: -20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="mb-14"
         >
-          {/* Section Title */}
-          <motion.h2 
-            variants={itemVariants}
-            className="text-5xl font-bold text-gray-900 dark:text-white mb-16 text-center"
-          >
+          <h2 className="font-heading text-4xl md:text-5xl font-bold text-gradient inline-block mb-3">
             About Me
-            <div className="mt-4 w-24 h-1 bg-emerald-500 mx-auto rounded-full" />
-          </motion.h2>
-
-          {/* Introduction */}
-          <motion.div 
-            variants={itemVariants}
-            className="bg-gray-50 dark:bg-gray-900 rounded-3xl p-8 mb-16 shadow-lg border border-gray-200 dark:border-gray-700"
-          >
-            <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 text-center">
-            Motivated senior-year Data Science student at the Institute of Technology of Cambodia with expertise in data analysis, programming, and statistical modeling.
-
-            Skilled in building machine learning models, with a specialized focus on Data Engineering and Natural Language Processing.
-
-            Committed to leveraging data-driven strategies to solve complex challenges and deliver impactful solutions. Strong communicator with a proven ability to collaborate effectively across disciplines.
+          </h2>
+          <p className="text-muted-foreground text-lg max-w-3xl leading-relaxed">
+            Final-year Data Science Engineering student at ITC, Cambodia. I build{' '}
+            <span className="text-foreground font-medium">end-to-end AI systems</span> — from
+            training reinforcement learning agents to drive autonomously in simulation, to developing
+            and shipping <span className="text-foreground font-medium">RAG-powered career guidance platforms</span> in
+            production. Passionate about bridging research and real-world impact.
           </p>
+        </motion.div>
 
-          </motion.div>
+        <div className="grid md:grid-cols-3 gap-6 mb-10">
+          {CARDS.map((card, i) => <AboutCard key={card.title} card={card} index={i} />)}
+        </div>
 
-          {/* Expertise Cards */}
-          <motion.div 
-            variants={containerVariants}
-            className="grid md:grid-cols-3 gap-8 mb-20"
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.5 }}
+          className="flex justify-start"
+        >
+          <a
+            href="/SEDTHA MAO_v2.pdf"
+            download
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-heading font-bold bg-primary text-primary-foreground hover:opacity-90 glow-primary hover:-translate-y-0.5 transition-all duration-200"
           >
-            {/* Education Card */}
-            <motion.div 
-              variants={itemVariants}
-              className="group bg-emerald-50 dark:bg-emerald-900/20 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
-            >
-              <div className="mb-6 flex items-center gap-4">
-                <BookOpen className="w-12 h-12 text-emerald-600 dark:text-emerald-400" />
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Education</h3>
-              </div>
-              <ul className="space-y-4">
-                {/* ITC Education */}
-                <li className="flex items-start gap-3">
-                  <ChevronRight className="w-5 h-5 text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-1" />
-                  <span className="text-gray-700 dark:text-gray-300">
-                    Institute of Technology of Cambodia (ITC) (2021-2026)<br />
-                    <span className="text-sm text-emerald-600 dark:text-emerald-400">Engineering Degree in Data Science</span><br />
-                    <span className="text-sm text-emerald-600 dark:text-emerald-400">GPA: 3.5</span>
-                  </span>
-                </li>
-                {/* ANT Technology Training Center */}
-                  <li className="flex items-start gap-3">
-                    <ChevronRight className="w-5 h-5 text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-1" />
-                    <span className="text-gray-700 dark:text-gray-300">
-                      ANT Technology Training Center (11-2025 - Now )<br />
-                      <span className="text-sm text-emerald-600 dark:text-emerald-400">Scholarship Student</span>
-                    </span>
-                  </li>
-                {/* Anlong Veng High School */}
-                <li className="flex items-start gap-3">
-                  <ChevronRight className="w-5 h-5 text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-1" />
-                  <span className="text-gray-700 dark:text-gray-300">
-                    Anlong Veng High School (2015-2021)<br />
-                    <span className="text-sm text-emerald-600 dark:text-emerald-400">Archive Grade: A</span>
-                  </span>
-                </li>
-              </ul>
-            </motion.div>
-            {/* Expertise Card */}
-            <motion.div 
-              variants={itemVariants}
-              className="group bg-teal-50 dark:bg-teal-900/20 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
-            >
-              <div className="mb-6 flex items-center gap-4">
-                <Award className="w-12 h-12 text-teal-600 dark:text-teal-400" />
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Expertise</h3>
-              </div>
-              <ul className="space-y-4">
-                {[
-                  'Data Engineering & Pipelines (ETL/ELT, Docker, Airflow, AWS S3, PySpark)',
-                  'Natural Language Processing (NLP) (Transformers, PyTorch, Fine-tuning, Khmer Language Models)',
-                  
-                  // Existing skills (re-ordered for flow)
-                  'Machine Learning & Deep Learning (PyTorch, Scikit-Learn, CNNs)',
-                  'Data Science & Analytics (Pandas, Power BI, Data Visualization, Statistical Modeling)',
-                  'Computer Vision & Object Detection (OpenCV, YOLO, Faster R-CNN, SSD)',
-                  'Web Scraping & Automation (Selenium, BeautifulSoup, Task Scheduling)',
-                  'IoT & Embedded Systems (ESP32-CAM, NodeMCU'
-                ].map((item, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <ChevronRight className="w-5 h-5 text-teal-600 dark:text-teal-400 flex-shrink-0 mt-1" />
-                    <span className="text-gray-700 dark:text-gray-300">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-
-            {/* Experience Card */}
-            <motion.div 
-              variants={itemVariants}
-              className="group bg-cyan-50 dark:bg-cyan-900/20 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
-            >
-              <div className="mb-6 flex items-center gap-4">
-                <Briefcase className="w-12 h-12 text-cyan-600 dark:text-cyan-400" />
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Experience</h3>
-              </div>
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3">
-                  <ChevronRight className="w-5 h-5 text-cyan-600 dark:text-cyan-400 flex-shrink-0 mt-1" />
-                  <span className="text-gray-700 dark:text-gray-300">
-                    AI, ML & ROBOTICS Intern<br />
-                    <span className="text-sm text-cyan-600 dark:text-cyan-400">Ministry of Education, Youth and Sport (July - December 2025)</span><br />
-                    <span className="text-xs text-gray-600 dark:text-gray-400">
-                      • Designed and implemented "A Scalable ETL Pipeline for Cloud Data" for my thesis.<br />
-                      • Gained hands-on experience with PySpark, AWS S3, Docker, and data pipeline orchestration.<br />
-                    </span>
-                  </span>
-                </li>
-                {/* Data Analyst Intern */}
-                <li className="flex items-start gap-3">
-                  <ChevronRight className="w-5 h-5 text-cyan-600 dark:text-cyan-400 flex-shrink-0 mt-1" />
-                  <span className="text-gray-700 dark:text-gray-300">
-                    Data Analyst Intern<br />
-                    <span className="text-sm text-cyan-600 dark:text-cyan-400">SEARLE Company (September - October 2024)</span>
-                  </span>
-                </li>
-                
-                {/* Volunteer Experience */}
-                <li className="flex items-start gap-3">
-                  <ChevronRight className="w-5 h-5 text-cyan-600 dark:text-cyan-400 flex-shrink-0 mt-1" />
-                  <span className="text-gray-700 dark:text-gray-300">
-                    Volunteer<br />
-                    <span className="text-sm text-cyan-600 dark:text-cyan-400">IDP Education (15 March 2024)</span><br />
-                    <span className="text-xs text-gray-600 dark:text-gray-400">
-                      • Assisted international students with communication during university talks, enrollment, and orientation<br />
-                      • Collaborated with staff to create a welcoming environment<br />
-                      • Praised for clear and accurate interpreting
-                    </span>
-                  </span>
-                </li>
-              </ul>
-            </motion.div>
-          </motion.div>
-
-          {/* Download Resume Button */}
-          <motion.div 
-            variants={itemVariants}
-            className="text-center"
-          >
-            <a 
-              href="/SEDTHA MAO (1).pdf" 
-              download 
-              className="inline-flex items-center gap-3 bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-700 hover:to-cyan-700 text-white px-8 py-4 rounded-lg font-semibold text-lg shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300"
-            >
-              <Download className="w-6 h-6" />
-              Download Resume
-            </a>
-          </motion.div>
+            <Download className="w-4 h-4" /> Download Resume
+          </a>
         </motion.div>
       </div>
     </div>
