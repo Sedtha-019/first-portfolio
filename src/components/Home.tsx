@@ -8,10 +8,10 @@ import { ArrowRight, BrainCircuit, Car, Bot } from 'lucide-react';
 ───────────────────────────────────────────────────────────── */
 const ARCH = [4, 6, 8, 8, 8, 6, 3];
 const OUTPUT_LABELS = ['RL Agent', 'AI Platform', 'CV & NLP'];
-const W = 420;
-const H = 340;
+const W = 620;
+const H = 260;
 const PX = 36;
-const PY = 24;
+const PY = 20;
 
 type Neuron = { x: number; y: number; li: number; ni: number; id: string };
 
@@ -76,11 +76,11 @@ const NeuralNetworkViz = () => (
           <span className="w-3 h-3 rounded-full bg-amber-500/70" />
           <span className="w-3 h-3 rounded-full bg-emerald-500/70" />
         </div>
-        <span className="ml-2 text-xs font-heading text-muted-foreground/50">neural_network.svg</span>
+        <span className="ml-2 text-xs font-heading text-muted-foreground/50">NEURAL NETWORK</span>
       </div>
 
       {/* SVG Network */}
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ maxHeight: '300px' }}>
+      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ maxHeight: '240px' }}>
         <defs>
           <filter id="nnGlow">
             <feGaussianBlur stdDeviation="3.5" result="blur" />
@@ -161,9 +161,9 @@ const NeuralNetworkViz = () => (
       {/* Metrics row */}
       <div className="mt-4 pt-4 border-t border-border/40 flex items-center gap-5 flex-wrap">
         {[
-          { label: 'Architecture', value: '4-6-8-8-8-6-3' },
-          { label: 'Layers',      value: '7' },
           { label: 'Activation',  value: 'ReLU' },
+          { label: 'Optimizer',   value: 'AdamW' },
+          { label: 'Loss',        value: 'Cross-Entropy' },
         ].map(({ label, value }) => (
           <div key={label} className="flex items-center gap-1.5">
             <span className="text-[10px] uppercase tracking-widest text-muted-foreground/50 font-heading">{label}</span>
