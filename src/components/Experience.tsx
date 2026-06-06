@@ -1,93 +1,84 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Briefcase, Calendar } from 'lucide-react';
-import type { Experience as ExperienceType } from '../types';
+import { Award, Calendar } from 'lucide-react';
 
-const experiences: ExperienceType[] = [
+const certifications = [
   {
     id: '1',
-    company: 'UNESCO UNITWIN in Cambodia',
-    role: 'Data Science Camp',
-    duration: 'March 2023',
-    description: [
-      'Participated in and successfully completed the Standard level of the 2024 UNESCO UNITWIN Data Science Camp in Cambodia',
-    'Gained practical experience and knowledge in cutting-edge data science techniques and methodologies'
-    ]
+    org: 'UNESCO UNITWIN in Cambodia',
+    role: 'Data Science Camp — Standard Level',
+    date: 'March 2023',
+    desc: 'Completed the Standard level of the 2024 UNESCO UNITWIN Data Science Camp. Gained practical experience in cutting-edge data science techniques and methodologies.',
   },
   {
     id: '2',
-    company: 'ASEAN Data Science Explorers',
+    org: 'ASEAN Data Science Explorers',
     role: 'SAP Analytics Cloud & SAP Build Apps Training',
-    duration: 'Appril 2024',
-    description: [
-      'Participated in the 2024 Enablement Session focused on SAP Analytics Cloud (SAC) and SAP Build Apps',
-      'Gained hands-on experience with data visualization, and no-code application development',
-    ]
-  }
+    date: 'April 2024',
+    desc: 'Participated in the 2024 Enablement Session on SAP Analytics Cloud (SAC) and SAP Build Apps. Hands-on experience with data visualisation and no-code application development.',
+  },
 ];
 
-const ExperienceCard = ({ experience }: { experience: ExperienceType }) => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+const CertCard = ({ cert, index }: { cert: typeof certifications[0]; index: number }) => {
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 20 }}
-      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-      transition={{ duration: 0.6 }}
-      className="relative pl-8 pb-12 last:pb-0"
+      initial={{ opacity: 0, x: -20 }}
+      animate={inView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.6, delay: index * 0.15 }}
+      className="relative pl-8 pb-10 last:pb-0"
     >
-      <div className="absolute left-0 top-0 w-px h-full bg-emerald-200 dark:bg-emerald-800">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-emerald-600 dark:bg-emerald-400" />
+      {/* Timeline line */}
+      <div className="absolute left-0 top-0 bottom-0 w-px bg-border/60">
+        <div className="absolute top-1 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-primary border-2 border-background ring-2 ring-primary/30" />
       </div>
-      
-      <div className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-lg">
-        <div className="flex items-center gap-4 mb-4">
-          <Briefcase className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+
+      <div className="glass-card rounded-2xl p-6 group hover:shadow-[0_4px_30px_hsl(var(--primary)/0.07)] transition-shadow duration-300">
+        <div className="flex items-start gap-3 mb-3">
+          <div className="p-2 rounded-lg bg-primary/10 border border-primary/20 flex-shrink-0">
+            <Award className="w-4 h-4 text-primary" />
+          </div>
           <div>
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{experience.role}</h3>
-            <p className="text-emerald-600 dark:text-emerald-400">{experience.company}</p>
+            <h3 className="font-heading text-base font-bold text-foreground group-hover:text-primary transition-colors">
+              {cert.role}
+            </h3>
+            <p className="text-primary text-sm font-medium">{cert.org}</p>
           </div>
         </div>
-        
-        <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 mb-4">
-          <Calendar className="w-4 h-4" />
-          <span>{experience.duration}</span>
+        <div className="flex items-center gap-1.5 text-muted-foreground text-xs mb-3 pl-1">
+          <Calendar className="w-3.5 h-3.5" />
+          {cert.date}
         </div>
-        
-        <ul className="space-y-2">
-          {experience.description.map((item, index) => (
-            <li key={index} className="text-gray-600 dark:text-gray-400">
-              • {item}
-            </li>
-          ))}
-        </ul>
+        <p className="text-sm text-muted-foreground leading-relaxed">{cert.desc}</p>
       </div>
     </motion.div>
   );
 };
 
 const Experience = () => {
-  return (
-    <div className="min-h-screen bg-gray-50 dark:bg-black py-20">
-      <div className="container mx-auto px-4">
-        <motion.h2
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-16"
-        >
-          Certification 
-        </motion.h2>
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
-        <div className="max-w-3xl mx-auto">
-          {experiences.map((experience) => (
-            <ExperienceCard key={experience.id} experience={experience} />
-          ))}
+  return (
+    <div className="py-24 relative">
+      <div className="container mx-auto px-4 sm:px-8">
+        <motion.div
+          ref={ref}
+          initial={{ opacity: 0, y: -20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="mb-14"
+        >
+          <h2 className="font-heading text-4xl md:text-5xl font-bold text-gradient inline-block mb-3">
+            Training & Achievements
+          </h2>
+          <p className="text-muted-foreground text-lg">Programs and recognitions outside of formal employment.</p>
+        </motion.div>
+
+        <div className="max-w-2xl">
+          {certifications.map((c, i) => <CertCard key={c.id} cert={c} index={i} />)}
         </div>
       </div>
     </div>
